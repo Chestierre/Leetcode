@@ -1,0 +1,15 @@
+C:\Code\Leetcode\3362\Zero Array Transformation III\bin\Debug\net9.0\Zero Array Transformation III.exe
+C:\Code\Leetcode\3362\Zero Array Transformation III\bin\Debug\net9.0\Zero Array Transformation III.deps.json
+C:\Code\Leetcode\3362\Zero Array Transformation III\bin\Debug\net9.0\Zero Array Transformation III.runtimeconfig.json
+C:\Code\Leetcode\3362\Zero Array Transformation III\bin\Debug\net9.0\Zero Array Transformation III.dll
+C:\Code\Leetcode\3362\Zero Array Transformation III\bin\Debug\net9.0\Zero Array Transformation III.pdb
+C:\Code\Leetcode\3362\Zero Array Transformation III\obj\Debug\net9.0\Zero Array Transformation III.GeneratedMSBuildEditorConfig.editorconfig
+C:\Code\Leetcode\3362\Zero Array Transformation III\obj\Debug\net9.0\Zero Array Transformation III.AssemblyInfoInputs.cache
+C:\Code\Leetcode\3362\Zero Array Transformation III\obj\Debug\net9.0\Zero Array Transformation III.AssemblyInfo.cs
+C:\Code\Leetcode\3362\Zero Array Transformation III\obj\Debug\net9.0\Zero Array Transformation III.csproj.CoreCompileInputs.cache
+C:\Code\Leetcode\3362\Zero Array Transformation III\obj\Debug\net9.0\Zero Array Transformation III.sourcelink.json
+C:\Code\Leetcode\3362\Zero Array Transformation III\obj\Debug\net9.0\Zero Array Transformation III.dll
+C:\Code\Leetcode\3362\Zero Array Transformation III\obj\Debug\net9.0\refint\Zero Array Transformation III.dll
+C:\Code\Leetcode\3362\Zero Array Transformation III\obj\Debug\net9.0\Zero Array Transformation III.pdb
+C:\Code\Leetcode\3362\Zero Array Transformation III\obj\Debug\net9.0\Zero Array Transformation III.genruntimeconfig.cache
+C:\Code\Leetcode\3362\Zero Array Transformation III\obj\Debug\net9.0\ref\Zero Array Transformation III.dll

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Zero Array Transformation III")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3540c2af3c60371497cf785273997c4bebcc8cd6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+056def62facaa333cc806cbb09e5a6476c8638be")]
 [assembly: System.Reflection.AssemblyProductAttribute("Zero Array Transformation III")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Zero Array Transformation III")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
