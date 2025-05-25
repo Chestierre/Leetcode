@@ -43,71 +43,69 @@ public class Program
     }
 }
 
-public class Solution {
-    public int MaxRemoval(int[] nums, int[][] queries) {
-        int[] numsCopy = (int[])nums.Clone();
-        int result = RecursiveCheck(numsCopy, queries, new bool[queries.Length], 0);
-        return result;
+public class Solution
+{
+    public int MaxRemoval(int[] nums, int[][] queries)
+    {
+        int result = Backtrack(nums, queries, new bool[queries.Length], 0);
+        return result == int.MaxValue ? -1 : result;
     }
 
-     public int RecursiveCheck(int[] nums, int[][] queries, bool[] used, int usedCount) {
-        if (CheckIfZero(nums)) return queries.Length - usedCount;
+    public int Backtrack(int[] nums, int[][] queries, bool[] used, int usedCount)
+    {
+        if (CheckIfZero(nums))
+        {
+            // Console.WriteLine("[{0}]", string.Join(", ", used));
+            // Console.WriteLine("Reached zero state. Queries left unused: " + (usedCount));
+            return queries.Length - usedCount;
+        }
 
-        int[] weight = new int[queries.Length];
+        int minUsed = -1;
 
-        for (int i = 0; i < queries.Length; i++) {
+        for (int i = 0; i < queries.Length; i++)
+        {
             if (used[i]) continue;
 
-            int[] test = (int[])nums.Clone();
-            int matches = 0;
+            int a = queries[i][0];
+            int b = queries[i][1];
+            int minB = Math.Min(a, b);
+            int maxB = Math.Max(a, b);
 
-            int firstBound = queries[i][0];
-            int secondBound = queries[i][1];
-
-            int minBound = Math.Min(firstBound, secondBound);
-            int maxBound = Math.Max(firstBound, secondBound);
-
-            for (int j = minBound; j <= maxBound; j++) {
-                if (test[j] > 0) {
-                    matches++;
-                    test[j]--;
+            bool anyChange = false;
+            for (int j = minB; j <= maxB; j++)
+            {
+                if (nums[j] > 0)
+                {
+                    anyChange = true;
+                    break;
                 }
             }
+            if (!anyChange) continue;
 
-            weight[i] = matches;
-        }
-
-        // Find the best query to apply next
-        int maxIndex = -1;
-        int maxValue = 0;
-        for (int i = 0; i < weight.Length; i++) {
-            if (!used[i] && weight[i] > maxValue) {
-                maxValue = weight[i];
-                maxIndex = i;
+            int[] numsCopy = (int[])nums.Clone();
+            for (int j = minB; j <= maxB; j++)
+            {
+                if (numsCopy[j] > 0) numsCopy[j]--;
             }
+
+            used[i] = true;
+            int result = Backtrack(numsCopy, queries, used, usedCount + 1);
+            if (result != int.MaxValue)
+            {
+                minUsed = Math.Max(minUsed, result);
+            }
+            used[i] = false;
         }
 
-        if (maxIndex == -1) return -1;
-
-        // Apply the best query to the original nums
-        int a = queries[maxIndex][0];
-        int b = queries[maxIndex][1];
-        int minB = Math.Min(a, b);
-        int maxB = Math.Max(a, b);
-        for (int j = minB; j <= maxB; j++) {
-            if (nums[j] > 0) nums[j]--;
-        }
-
-        used[maxIndex] = true;
-
-        return RecursiveCheck(nums, queries, used, usedCount + 1);
+        return minUsed;
     }
 
-    public bool CheckIfZero(int[] nums) {
-        foreach (int n in nums) {
+    public bool CheckIfZero(int[] nums)
+    {
+        foreach (int n in nums)
+        {
             if (n != 0) return false;
         }
         return true;
     }
-
 }
