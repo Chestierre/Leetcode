@@ -43,76 +43,43 @@ public class Program
     }
 }
 
+public class Solution {
+    public int MaxRemoval(int[] nums, int[][] queries) {
+          if (checkIfZero(nums)) {return queries.Length;};
+            for (int i=0; i<=queries.Length-1; i++){ //loop queries
+            var firstBound = queries[i][0];
+            var secondBound = queries[i][1];
 
-public class Solution
-{
-    public int MaxRemoval(int[] nums, int[][] queries)
-    {
-        int result = Backtrack(nums, queries, new bool[queries.Length], 0);
-        return result == int.MaxValue ? -1 : result;
-    }
-
-    public int Backtrack(int[] nums, int[][] queries, bool[] used, int usedCount)
-    {
-        if (CheckIfZero(nums))
-        {
-            Console.WriteLine("[{0}]", string.Join(", ", used));
-            Console.WriteLine("Reached zero state. Queries left unused: " + (usedCount));
-            return queries.Length - usedCount;
-        }
-
-        int minUsed = -1;
-
-        for (int i = 0; i < queries.Length; i++)
-        {
-            if (used[i]) continue;
-
-            int a = queries[i][0];
-            int b = queries[i][1];
-            int minB = Math.Min(a, b);
-            int maxB = Math.Max(a, b);
-
-            bool anyChange = false;
-            // for (int j = minB; j <= maxB; j++)
-            // {
-            //     if (nums[j] > 0)
-            //     {
-            //         anyChange = true;
-            //         break;
-            //     }
-            // }
-
-
-            int[] numsCopy = (int[])nums.Clone();
-            for (int j = minB; j <= maxB; j++)
-            {
-                if (numsCopy[j] > 0) {
-                    numsCopy[j]--;
-                    anyChange = true;
-                }
-                
+            int boundLength = Math.Abs(firstBound - secondBound);
+            int boundMin = Math.Min(firstBound, secondBound); 
+            for (int j = 0; j <= boundLength; j++) { 
+                if (nums[boundMin] != 0){  
+                    nums[boundMin] = nums[boundMin] - 1;
+                };
+                boundMin++;
             }
-            if (!anyChange) continue;
-
-            used[i] = true;
-            int result = Backtrack(numsCopy, queries, used, usedCount + 1);
-            if (result != int.MaxValue)
-            {
-                minUsed = Math.Max(minUsed, result);
+           
+            if (checkIfZero(nums)){
+                 //return nums[0];
+                return queries.Length - (i + 1);
             }
-            used[i] = false;
+            // int[] sample = retIfZero(nums);
+            // return sample[1];
         }
-
-        return minUsed;
+        return -1;
+    }
+    public bool checkIfZero(int[] nums){
+        var n = nums.Length;
+        for (int i = 0; i<n; i++){
+            if (nums[i] != 0) return false;
+        }return true;
     }
 
-    public bool CheckIfZero(int[] nums)
-    {
-        foreach (int n in nums)
-        {
-            if (n != 0) return false;
-        }
-        return true;
-    }
+    // public int[] retIfZero(int[] nums){
+    //     var n = nums.Length;
+    //     for (int i = 0; i<n; i++){
+    //         if (nums[i] != 0) return nums;
+    //     }return nums;
+    // }
+
 }
-
