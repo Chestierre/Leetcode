@@ -45,67 +45,63 @@ public class Program
 
 public class Solution
 {
+    private HashSet<string> visited = new();
+
     public int MaxRemoval(int[] nums, int[][] queries)
     {
-        int result = Backtrack(nums, queries, new bool[queries.Length], 0);
-        return result == int.MaxValue ? -1 : result;
+        // Optional: sort queries by size to try more impactful ones early
+        Array.Sort(queries, (a, b) => 
+            Math.Abs(b[1] - b[0]).CompareTo(Math.Abs(a[1] - a[0])));
+
+        return Backtrack(nums, queries, 0);
     }
 
-    public int Backtrack(int[] nums, int[][] queries, bool[] used, int usedCount)
+    private int Backtrack(int[] nums, int[][] queries, int usedCount)
     {
-        if (CheckIfZero(nums))
-        {
-            // Console.WriteLine("[{0}]", string.Join(", ", used));
-            // Console.WriteLine("Reached zero state. Queries left unused: " + (usedCount));
-            return queries.Length - usedCount;
-        }
+        if (CheckIfZero(nums)) return queries.Length - usedCount;
 
-        int minUsed = -1;
+        string key = GetKey(nums);
+        if (!visited.Add(key)) return -1;
+
+        int maxUnused = -1;
 
         for (int i = 0; i < queries.Length; i++)
         {
-            if (used[i]) continue;
+            int a = queries[i][0], b = queries[i][1];
+            int minB = Math.Min(a, b), maxB = Math.Max(a, b);
 
-            int a = queries[i][0];
-            int b = queries[i][1];
-            int minB = Math.Min(a, b);
-            int maxB = Math.Max(a, b);
-
-            bool anyChange = false;
+            List<int> changed = new();
             for (int j = minB; j <= maxB; j++)
             {
                 if (nums[j] > 0)
                 {
-                    anyChange = true;
-                    break;
+                    nums[j]--;
+                    changed.Add(j);
                 }
             }
-            if (!anyChange) continue;
 
-            int[] numsCopy = (int[])nums.Clone();
-            for (int j = minB; j <= maxB; j++)
-            {
-                if (numsCopy[j] > 0) numsCopy[j]--;
-            }
+            if (changed.Count == 0) continue;
 
-            used[i] = true;
-            int result = Backtrack(numsCopy, queries, used, usedCount + 1);
-            if (result != int.MaxValue)
-            {
-                minUsed = Math.Max(minUsed, result);
-            }
-            used[i] = false;
+            int res = Backtrack(nums, queries, usedCount + 1);
+            if (res != -1)
+                maxUnused = Math.Max(maxUnused, res);
+
+            foreach (int j in changed)
+                nums[j]++;
         }
 
-        return minUsed;
+        return maxUnused;
     }
 
-    public bool CheckIfZero(int[] nums)
+    private string GetKey(int[] nums)
+    {
+        return string.Join(",", nums);
+    }
+
+    private bool CheckIfZero(int[] nums)
     {
         foreach (int n in nums)
-        {
             if (n != 0) return false;
-        }
         return true;
     }
 }
